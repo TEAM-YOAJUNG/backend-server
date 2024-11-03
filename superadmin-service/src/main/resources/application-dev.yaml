@@ -1,0 +1,3 @@
+app:
+  gateway:
+    endpoint: http://gateway-dev.gachdong.club
