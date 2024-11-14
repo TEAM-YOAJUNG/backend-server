@@ -5,6 +5,8 @@ import club.gach_dong.exception.ClubException;
 import club.gach_dong.exception.UserException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,8 @@ public class AuthorizationService {
 
     public final RestClient restClient;
 
+    private static final Logger logger = LoggerFactory.getLogger(AuthorizationService.class);
+
     @Deprecated
     public String getUserId(HttpServletRequest httpServletRequest) {
         String header = httpServletRequest.getHeader(REFERENCE_ID_HEADER_KEY);
@@ -41,7 +45,6 @@ public class AuthorizationService {
 
         String uri = UriComponentsBuilder.fromHttpUrl(clubUrl)
                 .path("/{recruitmentId}/has-authority")
-                .queryParam("recruitmentId", recruitmentId)
                 .buildAndExpand(recruitmentId)
                 .toUriString();
 
@@ -54,6 +57,7 @@ public class AuthorizationService {
                     .body(Boolean.class);
 
             if (Boolean.FALSE.equals(result)) {
+                logger.info("유효하지 않은 권한");
                 throw new ClubException.ClubAdminUnauthorizedException();
             }
 //            return result != null ? result : false;
@@ -73,7 +77,6 @@ public class AuthorizationService {
 
         String uri = UriComponentsBuilder.fromHttpUrl(clubUrl)
                 .path("/recruitment/{recruitmentId}/is-valid")
-                .queryParam("recruitmentId", recruitmentId)
                 .buildAndExpand(recruitmentId)
                 .toUriString();
 

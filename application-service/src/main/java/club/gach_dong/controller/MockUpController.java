@@ -12,17 +12,14 @@ import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 public class MockUpController {
 
     @GetMapping("/{recruitmentId}/has-authority")
-    public Boolean testAuth(@PathParam("recruitmentId") Long recruitmentId, HttpServletRequest httpServletRequest,
+    public Boolean testAuth(@PathVariable("recruitmentId") Long recruitmentId, HttpServletRequest httpServletRequest,
                             @RequestUserReferenceId String userReferenceId) {
         System.out.println("통신 체결");
         String headerValue = httpServletRequest.getHeader("reqq-id");
@@ -33,7 +30,7 @@ public class MockUpController {
     }
 
     @GetMapping("/recruitment/{recruitmentId}/is-valid")
-    public Boolean testAuth(@PathParam("recruitmentId") Long recruitmentId, HttpServletRequest httpServletRequest) {
+    public Boolean testAuth(@PathVariable("recruitmentId") Long recruitmentId, HttpServletRequest httpServletRequest) {
         System.out.println("통신 체결 apply is valid");
         String headerValue = httpServletRequest.getHeader("reqq-id");
         System.out.println("reqq-id: " + headerValue);
