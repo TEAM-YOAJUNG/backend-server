@@ -1,4 +1,4 @@
-package club.gach_dong.domain;
+package club.gach_dong.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -14,6 +14,9 @@ public class Announcement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(length = 255, nullable = false)
+    private String name;
 
     @Column(length = 255, nullable = false)
     private String title;

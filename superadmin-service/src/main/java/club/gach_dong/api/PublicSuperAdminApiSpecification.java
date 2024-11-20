@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import club.gach_dong.dto.request.LoginRequest;
 import club.gach_dong.dto.response.AnnouncementResponse;
+import club.gach_dong.dto.response.AuthResponse;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface PublicSuperAdminApiSpecification {
 
     @Operation(summary = "로그인", description = "서비스 관리자가 로그인합니다.")
     @PostMapping("/login")
-    ResponseEntity<String> login(
+    ResponseEntity<AuthResponse> login(
             @Parameter(description = "로그인 정보") @Valid @RequestBody LoginRequest loginRequest);
 
     @Operation(summary = "모든 공지사항 조회", description = "모든 공지사항을 조회합니다.")

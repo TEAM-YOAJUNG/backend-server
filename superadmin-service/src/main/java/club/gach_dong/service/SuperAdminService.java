@@ -2,8 +2,8 @@ package club.gach_dong.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import club.gach_dong.domain.Announcement;
-import club.gach_dong.domain.SuperAdmin;
+import club.gach_dong.entity.Announcement;
+import club.gach_dong.entity.SuperAdmin;
 import club.gach_dong.repository.AnnouncementRepository;
 import club.gach_dong.repository.SuperAdminRepository;
 import club.gach_dong.util.JwtUtil;
@@ -27,17 +27,25 @@ public class SuperAdminService {
                 .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
 
         if (password.equals(superAdmin.getPassword())) {
-            return jwtUtil.generateToken(email);
+            return jwtUtil.generateSuperAdminToken(superAdmin);
         }
-        throw new RuntimeException("유효하지 않은 토큰입니다.");
+        throw new RuntimeException("유효하지 않은 비밀번호입니다.");
+    }
+
+    public boolean checkPassword(SuperAdmin superAdmin, String password) {
+        return password.equals(superAdmin.getPassword());
     }
 
     public boolean validateToken(String token) {
-        return jwtUtil.validateToken(token);
+        return jwtUtil.validateSuperAdminToken(token);
     }
 
-    public void logout(String token) {
-        jwtUtil.blacklistToken(token);
+    public void blacklistSuperAdminToken(String token) {
+        jwtUtil.blacklistSuperAdminToken(token);
+    }
+
+    public void blacklistSuperAdminRefreshToken(String refreshToken) {
+        jwtUtil.blacklistSuperAdminRefreshToken(refreshToken);
     }
 
     public Announcement createAnnouncement(String title, String content) {
@@ -68,5 +76,10 @@ public class SuperAdminService {
 
     public SuperAdmin findByEmail(String email) {
         return superAdminRepository.findByEmail(email).orElse(null);
+    }
+
+    public SuperAdmin findByUserReferenceId(String userReferenceId) {
+        return superAdminRepository.findByUserReferenceId(userReferenceId)
+                .orElse(null);
     }
 }
