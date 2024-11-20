@@ -16,9 +16,6 @@ public class Announcement {
     private Long id;
 
     @Column(length = 255, nullable = false)
-    private String name;
-
-    @Column(length = 255, nullable = false)
     private String title;
 
     @Column(length = 500, nullable = false)
