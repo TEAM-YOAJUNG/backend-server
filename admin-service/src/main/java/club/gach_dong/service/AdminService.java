@@ -3,6 +3,8 @@ package club.gach_dong.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -43,7 +45,12 @@ public class AdminService {
         String url = clubServiceUrl + "/admin/api/v1/authorize-admin";
 
         try {
-            ResponseEntity<Void> response = restTemplate.postForEntity(url, clubId, Void.class);
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("X-USER-REFERENCE-ID", userReferenceId);
+
+            HttpEntity<Long> requestEntity = new HttpEntity<>(clubId, headers);
+
+            ResponseEntity<Void> response = restTemplate.postForEntity(url, requestEntity, Void.class);
 
             if (!response.getStatusCode().is2xxSuccessful()) {
                 throw new IllegalArgumentException("동아리 관리자 권한 부여 실패");
