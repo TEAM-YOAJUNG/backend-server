@@ -167,13 +167,6 @@ public class ApplicationService {
             }
         }
 
-//        String applicationStatus = null;
-//        if (!Objects.equals(toApplyClub.getStatus(), "TEMPORARY_SAVED")) {
-//            applicationStatus = serviceMeshService.getFirstStatus(toApplyClub.getClubId(), recruitmentId);
-//        } else {
-//            applicationStatus = toApplyClub.getStatus();
-//        }
-
         Application application = Application.builder()
                 .userId(userId)
                 .recruitmentId(recruitmentId)
@@ -256,7 +249,6 @@ public class ApplicationService {
                         .clubId(application.getClubId())
                         .status(application.getApplicationStatus())
                         .submitDate(application.getSubmitDate())
-//                        .applicationBody(application.getApplicationBody())
                         .build())
                 .collect(Collectors.toList());
 

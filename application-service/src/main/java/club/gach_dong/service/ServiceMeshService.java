@@ -51,10 +51,10 @@ public class ServiceMeshService {
                     });
 
         } catch (RestClientException e) {
-            System.err.println("REST 클라이언트 오류 발생: " + e.getMessage());
+            logger.error("REST 클라이언트 오류 발생: {}", e.getMessage(), e);
             throw new UserException.UserNotFound();
         } catch (Exception e) {
-            System.err.println("예상치 못한 오류 발생: " + e.getMessage());
+            logger.error("예상치 못한 오류 발생: {}", e.getMessage(), e);
             throw new UserException.UserNotFound();
         }
     }
@@ -80,14 +80,11 @@ public class ServiceMeshService {
             throw new ClubException.ClubCommunicateFailedException();
 
         } catch (RestClientException e) {
-            System.err.println("REST 클라이언트 오류 발생: " + e.getMessage());
-            logger.error("RestClientException");
+            logger.error("REST 클라이언트 오류 발생: {}", e.getMessage(), e);
             throw new ClubException.ClubAdminCommunicateFailedException();
-//            return false;
         } catch (Exception e) {
-            System.err.println("예상치 못한 오류 발생: " + e.getMessage());
+            logger.error("예상치 못한 오류 발생: {}", e.getMessage(), e);
             throw new ClubException.ClubAdminCommunicateFailedException();
-//            return false;
         }
     }
 }

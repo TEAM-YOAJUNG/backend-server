@@ -1,0 +1,57 @@
+app:
+  gateway:
+    # 본인에게 맞는 환경의 gateway entpoint를 입력해주세요
+    endpoint: http://localhost:8080
+
+spring:
+  datasource:
+    url: jdbc:h2:~/auth;MODE=MYSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ''
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        create_empty_composites:
+          enabled: true
+        show_sql: true
+        format_sql: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: yoajeong4@gmail.com
+    password: ltsz tmvn mlla knne
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+  thymeleaf:
+    cache: false
+
+  data:
+    redis:
+      host: redis-18999.c259.us-central1-2.gce.redns.redis-cloud.com
+      port: 18999
+      password: 818cNVgjQxklp3bE0Zv7YCeTulODeong
+
+jwt:
+  admin:
+    secret: your-very-long-64-byte-or-more-secret-key-##for-@@jwt-!!authentication
+  user:
+    secret: your-very-long-64-byte-or-more-secret-key-##for-@@jwt-!!authentication
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+
+server:
+  port: 8081
+
+springdoc:
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+
+USER_SERVICE_URL: http://localhost:8080
