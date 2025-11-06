@@ -5,6 +5,7 @@ import club.gach_dong.exception.ClubException;
 import club.gach_dong.exception.UserException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthorizationService {
@@ -34,7 +36,6 @@ public class AuthorizationService {
         }
 
         throw new UserException.UserNotFound();
-//        return null;
     }
 
     public void getAuthByUserIdAndApplyId(String userId, Long recruitmentId) {
@@ -56,16 +57,13 @@ public class AuthorizationService {
             if (Boolean.FALSE.equals(result)) {
                 throw new ClubException.ClubAdminUnauthorizedException();
             }
-//            return result != null ? result : false;
 
         } catch (RestClientException e) {
-            System.err.println("REST 클라이언트 오류 발생: " + e.getMessage());
+            log.error("REST 클라이언트 오류 발생: {}", e.getMessage(), e);
             throw new ClubException.ClubAdminCommunicateFailedException();
-//            return false;
         } catch (Exception e) {
-            System.err.println("예상치 못한 오류 발생: " + e.getMessage());
+            log.error("예상치 못한 오류 발생: {}", e.getMessage(), e);
             throw new ClubException.ClubAdminCommunicateFailedException();
-//            return false;
         }
     }
 
@@ -86,16 +84,13 @@ public class AuthorizationService {
             if (Boolean.FALSE.equals(result)) {
                 throw new ApplicationUnauthorizedException();
             }
-//            return result != null ? result : false;
 
         } catch (RestClientException e) {
-            System.err.println("REST 클라이언트 오류 발생: " + e.getMessage());
+            log.error("REST 클라이언트 오류 발생: {}", e.getMessage(), e);
             throw new ClubException.ClubAdminCommunicateFailedException();
-//            return false;
         } catch (Exception e) {
-            System.err.println("예상치 못한 오류 발생: " + e.getMessage());
+            log.error("예상치 못한 오류 발생: {}", e.getMessage(), e);
             throw new ClubException.ClubAdminCommunicateFailedException();
-//            return false;
         }
     }
 
@@ -117,16 +112,13 @@ public class AuthorizationService {
             if (Boolean.FALSE.equals(result)) {
                 throw new ClubException.ClubAdminUnauthorizedException();
             }
-//            return result != null ? result : false;
 
         } catch (RestClientException e) {
-            System.err.println("REST 클라이언트 오류 발생: " + e.getMessage());
+            log.error("REST 클라이언트 오류 발생: {}", e.getMessage(), e);
             throw new ClubException.ClubAdminCommunicateFailedException();
-//            return false;
         } catch (Exception e) {
-            System.err.println("예상치 못한 오류 발생: " + e.getMessage());
+            log.error("예상치 못한 오류 발생: {}", e.getMessage(), e);
             throw new ClubException.ClubAdminCommunicateFailedException();
-//            return false;
         }
     }
 
